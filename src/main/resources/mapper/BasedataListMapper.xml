@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.BasedataListMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.BasedataList">
+    <id column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="originator" jdbcType="VARCHAR" property="originator" />
+    <result column="modifytime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="seq" jdbcType="REAL" property="seq" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    iid, sid, pid, remark, createtime, originator, modifytime, modifier, seq
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basedatalist
+    where iid = #{iid,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from basedatalist
+    where iid = #{iid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.BasedataList">
+    insert into basedatalist (iid, sid, pid, 
+      remark, createtime, originator, 
+      modifytime, modifier, seq
+      )
+    values (#{iid,jdbcType=INTEGER}, #{sid,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{originator,jdbcType=VARCHAR}, 
+      #{modifytime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{seq,jdbcType=REAL}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.BasedataList">
+    insert into basedatalist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iid != null">
+        iid,
+      </if>
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="originator != null">
+        originator,
+      </if>
+      <if test="modifytime != null">
+        modifytime,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="seq != null">
+        seq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iid != null">
+        #{iid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="originator != null">
+        #{originator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.BasedataList">
+    update basedatalist
+    <set>
+      <if test="sid != null">
+        sid = #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="originator != null">
+        originator = #{originator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null">
+        seq = #{seq,jdbcType=REAL},
+      </if>
+    </set>
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.BasedataList">
+    update basedatalist
+    set sid = #{sid,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      originator = #{originator,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      seq = #{seq,jdbcType=REAL}
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  
+  
+    <select id="selectByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basedatalist
+    where pid=#{pid,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>
