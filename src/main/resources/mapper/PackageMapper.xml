@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.PackageMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.Package">
+    <id column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="oprimary" jdbcType="VARCHAR" property="oprimary" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="updateuser" jdbcType="VARCHAR" property="updateuser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sid, oprimary, createdate, updatedate, updateuser
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from package
+    where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from package
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteBPK" parameterType="java.lang.String">
+    delete from package
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.Package">
+    insert into package (sid, oprimary, createdate, 
+      updatedate, updateuser)
+    values (#{sid,jdbcType=VARCHAR}, #{oprimary,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{updateuser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.Package">
+    insert into package
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="oprimary != null">
+        oprimary,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+      <if test="updateuser != null">
+        updateuser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="oprimary != null">
+        #{oprimary,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.Package">
+    update package
+    <set>
+      <if test="oprimary != null">
+        oprimary = #{oprimary,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.Package">
+    update package
+    set sid = #{sid,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where sid = #{oprimary,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateBPK" parameterType="com.xdf.femisnsb.model.Package">
+    update package
+    set sid = #{sid,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR}
+    where sid = #{oprimary,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from package
+    where 1=1
+  </select>
+  
+  <select id="selectBPK" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from package
+    where sid=#{sid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+</mapper>

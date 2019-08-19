@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.ContinuousMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.Continuous">
+    <id column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="prePart" jdbcType="VARCHAR" property="prepart" />
+    <result column="increament" jdbcType="INTEGER" property="increament" />
+    <result column="suffix" jdbcType="VARCHAR" property="suffix" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sid, prePart, increament, suffix
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from continuous
+    where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from continuous
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.Continuous">
+    insert into continuous (sid, prePart, increament, 
+      suffix)
+    values (#{sid,jdbcType=VARCHAR}, #{prepart,jdbcType=VARCHAR}, #{increament,jdbcType=INTEGER}, 
+      #{suffix,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.Continuous">
+    insert into continuous
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="prepart != null">
+        prePart,
+      </if>
+      <if test="increament != null">
+        increament,
+      </if>
+      <if test="suffix != null">
+        suffix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="prepart != null">
+        #{prepart,jdbcType=VARCHAR},
+      </if>
+      <if test="increament != null">
+        #{increament,jdbcType=INTEGER},
+      </if>
+      <if test="suffix != null">
+        #{suffix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.Continuous">
+    update continuous
+    <set>
+      <if test="prepart != null">
+        prePart = #{prepart,jdbcType=VARCHAR},
+      </if>
+      <if test="increament != null">
+        increament = #{increament,jdbcType=INTEGER},
+      </if>
+      <if test="suffix != null">
+        suffix = #{suffix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.Continuous">
+    update continuous
+    set prePart = #{prepart,jdbcType=VARCHAR},
+      increament = #{increament,jdbcType=INTEGER},
+      suffix = #{suffix,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="safeRowBoundsEnabled" value="true"/>
+        <setting name="cacheEnabled" value="false" /><!-- 关闭缓存 -->
+        <setting name="useGeneratedKeys" value="true" />
+
+		<!-- 
+			打印SQL语句 
+			在 2019年8月3日 23:44:55 注释掉本行，打算将SQL打印到日志文件         
+        	<setting name="logImpl" value="STDOUT_LOGGING" />
+        -->
+        
+        <!-- 在2019年8月4日 07:16:51 为将SQL打印到日志文件中追加的配置 -->
+        <setting name="logPrefix" value="com.xdf.femisnsb." />
+    </settings>
+
+    
+    <!--<typeAliases>-->
+        <!-- 为类取别名 -->
+    <!--</typeAliases>-->
+
+	<!-- 
+		这里可以设置用于监控SQL执行情况:
+		记录开始、结束，计算执行时长
+	  -->
+    <!--<plugins>  -->
+        <!--<plugin interceptor=""></plugin>-->
+    <!--</plugins>-->
+
+    <!--<typeHandlers>-->
+        <!---->
+    <!--</typeHandlers>-->
+
+</configuration>

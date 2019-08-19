@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.alibaba.com/schema/stat 
+       http://www.alibaba.com/schema/stat.xsd 
+       http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+     
+       <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       		<property name="ignoreUnresolvablePlaceholders" value="true" />
+       		<property name="locations">
+       			<list>
+       				<value>classpath:settings.properties</value>
+       			</list>
+       		</property>
+       </bean>
+       
+       
+        <!-- 组件扫描 
+        <context:component-scan base-package="com.xdf.femisnsb.controller"/>
+        <context:component-scan base-package="com.xdf.femisnsb.service"/>
+        <context:component-scan base-package="com.xdf.femisnsb.dao"/>
+        <context:component-scan base-package="com.xdf.femisnsb.model"/>
+        <context:annotation-config></context:annotation-config>
+        -->
+        
+        
+       <!--
+       	类内部注解扫描，2019年8月1日 14:29:24
+       	追加本行代码后，BillOrderServiceImpl.save 的事务才可正常运行
+       	采用了事务注解的方法中不可调用自身的方法，如果要调用应该将该方法独立到
+       	类似 OrderMainServiceAgg 类似的实现类中
+       	-->
+       <mvc:annotation-driven/>
+       
+       
+
+       <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+       		<property name="driverClassName" value="${db.driverClassName}"></property>
+       		<property name="url" value="${db.url}"></property>
+       		<property name="username" value="${db.username}" />
+       		<property name="password" value="${db.password}" />
+       		<property name="initialSize" value="3"></property>
+       		<property name="minIdle" value="3" />
+       		<property name="maxActive" value="20" />
+       		<property name="maxWait" value="600000" />
+       		<property name="filters" value="stat,wall" />
+       </bean>
+       
+
+       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+       		<property name="configLocation" value="classpath:mybatis-config.xml" />
+       		<property name="dataSource" ref="dataSource" />
+       		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+       </bean>
+       
+       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       		<property name="basePackage" value="com.xdf.femisnsb.dao" />
+       		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+       </bean>
+       <!-- 
+       		以上的3个bean的配置的作用： 
+       		1. 设置链接数据库的参数
+       		2. 指定查询数据库的SQL语句所在的xml文件所在的路径
+       		3. 指定访问数据库的DAO类的所在路径
+       	-->
+       
+       <!--  下面配置spring事务 -->  
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+       		<property name="dataSource" ref="dataSource" />
+       </bean>
+       
+       <!-- 
+       	下面的 proxy-target-class="true" 表示事务的实现是基于类的代理，
+       	即要在服务层实现类的方法上使用注解：@Transactional(propagation = Propagation.REQUIRED)
+       	-->
+       <tx:annotation-driven transaction-manager="transactionManager"/>
+       
+       
+       
+       <!-- druid 过滤器 -->
+       <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+       		<property name="slowSqlMillis" value="20000" /><!-- 执行时间超过20秒，被认为是慢SQL -->
+       		<property name="logSlowSql" value="true" />
+       		<property name="mergeSql" value="true" />
+       </bean>
+       
+       <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+       		<property name="dbType" value="mysql" />
+       </bean>
+       
+       
+       
+    
+   
+   <!--
+   		下面是shiro 的配置 
+		配置顺序：
+		1. 配置securitymanager
+			1.1. 配置缓存管理器cacheManager
+			
+		** shiro url权限设置遵循第一次匹配优先，即顺序执行，第一次匹配之后就不再考虑之后的规则了
+			shiro 关键字介绍：
+			anon - 不需要权限验证，即可以匿名访问
+			authc - 要验证登录，即成功登录才有权限访问 。没有登录直接访问shiro会自动跳转到登录页面 - 需要配置
+					     该功能是通过web.xml中的过滤器DelegatingFilterProxy实现
+					    
+	 -->
+	<bean id="securitymanager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="cacheManager" ref="cacheManager" />  <!-- 缓存管理器 -->
+		<!-- 单realm认证 --> 
+		<property name="realm" ref="shiroRealm"></property>
+		
+		<!-- 多realm认证 
+		<property name="authenticator" ref="authenticator"></property>
+    	<property name="realms">
+    		<list>
+    			<ref bean="shiroRealm"/>
+    			<ref bean="secondRealm"/>
+    		</list>
+    	</property>
+    	-->
+	</bean>
+	
+	
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    	<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+    </bean>
+    
+    
+    
+    <!-- 应该通过注解自动创建实例对象，但是没有这样完成，只能通过手动配置XML中的bean来实现 -->
+    <bean id="permUserServiceImpl" class="com.xdf.femisnsb.service.PermUserServiceImpl"></bean>
+    <bean id="permUrlStrategyServiceImpl" class="com.xdf.femisnsb.service.PermUrlStrategyServiceImpl"></bean>
+    <bean id="shiroService" class="com.xdf.femisnsb.service.ShiroService"></bean>
+    
+    
+    
+    <!-- 实现了realm接口的bean -->
+    <bean id="shiroRealm" class="com.xdf.femisnsb.service.ShiroRealm">
+    	<property name="credentialsMatcher">
+    		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+    			<property name="hashAlgorithmName" value="MD5"></property><!-- UI的密码使用MD5加密 -->
+    			<property name="hashIterations" value="1024"></property><!-- 加密1024次，对应的DB端也要加密1024次 -->
+    		</bean>
+    	</property>
+    </bean>
+    
+     <bean id="secondRealm" class="com.xdf.femisnsb.shiro.realms.SecondRealm">
+    	<property name="credentialsMatcher">
+    		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+    			<property name="hashAlgorithmName" value="SHA1"></property><!-- UI的密码使用MD5加密 -->
+    			<property name="hashIterations" value="1024"></property><!-- 加密1024次，对应的DB端也要加密1024次 -->
+    		</bean>
+    	</property>
+    </bean>
+    
+    <!-- 多realm配置 -->
+    <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+    	<!-- 
+    		认证策略：
+    		1. FirstSuccessfulStrategy - 只要有一个realm认证通过即可，返回第一个成功的realm
+    		2. AtLeastOneSuccessfulStrategy - 只要有一个realm认证通过即可，返回所有成功的realm
+    		3. AllSuccessfulStrategy - 要所有的都验证通过，返回所有成功的realm
+    		   系统默认策略：AtLeastOneSuccessfulStrategy
+    	 -->
+    	<property name="authenticationStrategy">
+    		<!-- <bean class="org.apache.shiro.authc.pam.AllSuccessfulStrategy"></bean>  -->
+    		<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean> 
+    	</property>
+    </bean>
+    
+    
+    
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    	
+    <!-- 处理shiro的注解，必须先配置lifecycleBeanPostProcessor -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+    	depends-on="lifecycleBeanPostProcessor"></bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    	<property name="securityManager" ref="securitymanager"></property>
+    </bean>
+    	
+	<!-- 本bean的id要保证和web.xml中的使用了类DelegatingFilterProxy的过滤器的名字一致 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securitymanager"></property>
+		<!-- <property name="unauthorizedUrl" value="/unauthorized.jsp"></property>  -->
+		<property name="loginUrl" value="/ng/index.html"></property>
+		<!-- 
+			页面unauthorized.jsp在webapp目录下
+			<property name="loginUrl" value="/unauthorized.jsp"></property>  
+		-->
+		
+		<property name="successUrl" value="/ng/index.html"></property>
+		<property name="unauthorizedUrl" value="/user/noPermissionHandler"></property>
+		
+		
+		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"></property>
+		<!-- 
+			应该将下面的硬编码方式配置的资源和过滤器的关系设置在数据库中
+			从数据库中获取后保存在map类型实例中即可，该方式修改为上面的形式
+		
+		 <property name="filterChainDefinitions">
+		 	<value>
+		 		# url = 拦截器名称
+		 		# 定义访问url的权限
+		 		
+		 		/favicon.ico = anon
+		 		/shiro.css = anon
+		 		/login.jsp = anon
+		 		/shiro/login = anon
+		 		/shiro/logout = logout
+		 		
+		 		/user.jsp = roles[user]
+		 		/admin.jsp = roles[admin]
+
+		 		
+		 		# 其他的请求都要通过认证才可访问
+		 		/** = authc
+		 	</value>
+		 </property>
+		  -->
+	</bean>
+	
+	<!-- 
+		通过实例工厂方法的方式创建带有上面“资源 - 过滤器”配置的bean对象，交给本配置文件中的bean - shiroFilter 
+		的property - filterChainDefinitionMap 使用
+	-->
+	<bean id="filterChainDefinitionMapBuilder" class="com.xdf.femisnsb.factory.FilterChainDefinitionMapBuilder"></bean>
+	<bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapBuilder" 
+		factory-method="buildMap"></bean>
+		
+	<!-- 
+	<bean id="shiroService" class="com.xdf.femisnsb.service.ShiroService"></bean>
+	 -->
+	
+	
+</beans>

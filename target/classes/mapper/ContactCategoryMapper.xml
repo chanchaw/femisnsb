@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.ContactCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.ContactCategory">
+    <id column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="serialNO" jdbcType="REAL" property="serialno" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="visible" jdbcType="INTEGER" property="visible" />
+    <result column="seq" jdbcType="FLOAT" property="seq" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sid, name, pid, serialNO, status, createDate,updateTime,visible,seq
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from contactcategory
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contactcategory
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.ContactCategory">
+    insert into contactcategory (sid, name, pid, 
+      serialNO, status,visible,seq
+      )
+    values (#{sid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{serialno,jdbcType=REAL}, #{status,jdbcType=INTEGER},#{visible,jdbcType=INTEGER},#{seq,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.ContactCategory">
+    insert into contactcategory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="serialno != null">
+        serialNO,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="serialno != null">
+        #{serialno,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.ContactCategory">
+    update contactcategory
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="serialno != null">
+        serialNO = #{serialno,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.ContactCategory">
+    update contactcategory
+    set sid = #{sid,jdbcType=VARCHAR},
+    	name = #{name,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      serialNO = #{serialno,jdbcType=REAL},
+      status = #{status,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      visible = #{visible,jdbcType=INTEGER},
+      seq = #{seq,jdbcType=REAL}
+    where sid = #{oprimary,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- 下面是自定义查询 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from contactcategory
+    where visible = 1
+    Order by seq,sid
+  </select>
+  
+  <select id="selectAllValid" resultMap="BaseResultMap">
+    select *
+    from contactcategory
+    where visible = 1
+    Order by seq,sid
+  </select>
+  
+  
+  
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from contactcategory
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from contactcategory
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getCategoryNames" parameterType="java.lang.String" resultType="String">
+	SELECT getCategoryNames(#{categories,jdbcType=VARCHAR});
+  </select>
+  
+  
+  
+  
+</mapper>

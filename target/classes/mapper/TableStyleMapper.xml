@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.TableStyleMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.TableStyle">
+    <id column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="dbname" jdbcType="VARCHAR" property="dbname" />
+    <result column="tablename" jdbcType="VARCHAR" property="tablename" />
+    <result column="fieldname" jdbcType="VARCHAR" property="fieldname" />
+    <result column="caption" jdbcType="VARCHAR" property="caption" />
+    <result column="visible" jdbcType="INTEGER" property="visible" />
+    <result column="colwidth" jdbcType="DOUBLE" property="colwidth" />
+    <result column="alignment" jdbcType="INTEGER" property="alignment" />
+    <result column="backcolor" jdbcType="VARCHAR" property="backcolor" />
+    <result column="forecolor" jdbcType="VARCHAR" property="forecolor" />
+    <result column="locked" jdbcType="INTEGER" property="locked" />
+    <result column="isQuantity" jdbcType="INTEGER" property="isquantity" />
+    <result column="sole" jdbcType="INTEGER" property="sole" />
+    <result column="notnull" jdbcType="INTEGER" property="notnull" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="seq" jdbcType="DOUBLE" property="seq" />
+    <result column="fixed" jdbcType="INTEGER" property="fixed" />
+    <result column="datatype" jdbcType="VARCHAR" property="datatype" />
+    <result column="widthpercent" jdbcType="VARCHAR" property="widthpercent" />
+    <result column="display" jdbcType="VARCHAR" property="display" />
+    <result column="aligncaption" jdbcType="VARCHAR" property="aligncaption" />
+    <result column="aligncontent" jdbcType="VARCHAR" property="aligncontent" />
+    <result column="widthpx" jdbcType="VARCHAR" property="widthpx" />
+    <result column="width" jdbcType="FLOAT" property="width" />
+    <result column="immutable" jdbcType="INTEGER" property="immutable" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    iid, dbname, tablename, fieldname, caption, visible,colwidth, alignment, backcolor, forecolor, 
+    locked, isQuantity, sole, notnull, createdate,seq,fixed,datatype,widthpercent,display,aligncaption,
+    aligncontent,widthpx,width,immutable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tablestyle
+    where iid = #{iid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tablestyle
+    where iid = #{iid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.TableStyle">
+    insert into tablestyle (iid, dbname, tablename, 
+      fieldname, caption, colwidth, 
+      alignment, backcolor, forecolor, 
+      locked, isQuantity, sole, 
+      notnull, createdate,fixed,datatype,widthpercent,display,aligncaption,aligncontent
+      )
+    values (#{iid,jdbcType=INTEGER}, #{dbname,jdbcType=VARCHAR}, #{tablename,jdbcType=VARCHAR}, 
+      #{fieldname,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, #{colwidth,jdbcType=DOUBLE}, 
+      #{alignment,jdbcType=INTEGER}, #{backcolor,jdbcType=VARCHAR}, #{forecolor,jdbcType=VARCHAR}, 
+      #{locked,jdbcType=INTEGER}, #{isquantity,jdbcType=INTEGER}, #{sole,jdbcType=INTEGER}, 
+      #{notnull,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP},#{fixed,jdbcType=INTEGER},
+      #{datatype,jdbcType=VARCHAR},#{widthpercent,jdbcType=VARCHAR},#{display,jdbcType=VARCHAR}
+      ,#{aligncaption,jdbcType=VARCHAR},#{aligncontent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.TableStyle">
+    insert into tablestyle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iid != null">
+        iid,
+      </if>
+      <if test="dbname != null">
+        dbname,
+      </if>
+      <if test="tablename != null">
+        tablename,
+      </if>
+      <if test="fieldname != null">
+        fieldname,
+      </if>
+      <if test="caption != null">
+        caption,
+      </if>
+      <if test="colwidth != null">
+        colwidth,
+      </if>
+      <if test="alignment != null">
+        alignment,
+      </if>
+      <if test="backcolor != null">
+        backcolor,
+      </if>
+      <if test="forecolor != null">
+        forecolor,
+      </if>
+      <if test="locked != null">
+        locked,
+      </if>
+      <if test="isquantity != null">
+        isQuantity,
+      </if>
+      <if test="sole != null">
+        sole,
+      </if>
+      <if test="notnull != null">
+        notnull,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iid != null">
+        #{iid,jdbcType=INTEGER},
+      </if>
+      <if test="dbname != null">
+        #{dbname,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null">
+        #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldname != null">
+        #{fieldname,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="colwidth != null">
+        #{colwidth,jdbcType=DOUBLE},
+      </if>
+      <if test="alignment != null">
+        #{alignment,jdbcType=INTEGER},
+      </if>
+      <if test="backcolor != null">
+        #{backcolor,jdbcType=VARCHAR},
+      </if>
+      <if test="forecolor != null">
+        #{forecolor,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null">
+        #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="isquantity != null">
+        #{isquantity,jdbcType=INTEGER},
+      </if>
+      <if test="sole != null">
+        #{sole,jdbcType=INTEGER},
+      </if>
+      <if test="notnull != null">
+        #{notnull,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.TableStyle">
+    update tablestyle
+    <set>
+      <if test="dbname != null">
+        dbname = #{dbname,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null">
+        tablename = #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldname != null">
+        fieldname = #{fieldname,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="colwidth != null">
+        colwidth = #{colwidth,jdbcType=DOUBLE},
+      </if>
+      <if test="alignment != null">
+        alignment = #{alignment,jdbcType=INTEGER},
+      </if>
+      <if test="backcolor != null">
+        backcolor = #{backcolor,jdbcType=VARCHAR},
+      </if>
+      <if test="forecolor != null">
+        forecolor = #{forecolor,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null">
+        locked = #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="isquantity != null">
+        isQuantity = #{isquantity,jdbcType=INTEGER},
+      </if>
+      <if test="sole != null">
+        sole = #{sole,jdbcType=INTEGER},
+      </if>
+      <if test="notnull != null">
+        notnull = #{notnull,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fixed != null">
+        fixed = #{fixed,jdbcType=INTEGER},
+      </if>
+      
+    </set>
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.TableStyle">
+    update tablestyle
+    set dbname = #{dbname,jdbcType=VARCHAR},
+      tablename = #{tablename,jdbcType=VARCHAR},
+      fieldname = #{fieldname,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      colwidth = #{colwidth,jdbcType=DOUBLE},
+      alignment = #{alignment,jdbcType=INTEGER},
+      backcolor = #{backcolor,jdbcType=VARCHAR},
+      forecolor = #{forecolor,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=INTEGER},
+      isQuantity = #{isquantity,jdbcType=INTEGER},
+      sole = #{sole,jdbcType=INTEGER},
+      notnull = #{notnull,jdbcType=INTEGER},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      fixed = #{fixed,jdbcType=INTEGER},
+      datatype = #{datatype,jdbcType=VARCHAR}
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 下面是自定义查询 -->
+    <select id="selectAll"  resultMap="BaseResultMap">
+		select * from tablestyle where 1=1 and immutable=0;
+  </select>
+  
+   	<select id="selectAllValid"  resultMap="BaseResultMap">
+		select * from tablestyle where ifisnull(visible,1)=1 and immutable=0;
+  	</select>
+  
+   	<select id="selectAllInvalid"  resultMap="BaseResultMap">
+		select * from tablestyle where ifisnull(visible,1)=1 and immutable=0;
+  	</select>
+  
+    <select id="selectSingleTable"  parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from tablestyle 
+		where tablename=#{tableName,jdbcType=VARCHAR} 
+		And ifnull(visible,1)=1
+		and immutable=0
+		Order by seq,iid;
+  	</select>
+  	
+  	<select id="selectSingleTableAll"  parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from tablestyle 
+		where tablename=#{tableName,jdbcType=VARCHAR}
+		and immutable=0
+		Order by seq,iid;
+  	</select>
+  	
+  
+</mapper>

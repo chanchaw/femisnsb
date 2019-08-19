@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.PermUrlStrategyMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.PermUrlStrategy">
+    <id column="url" jdbcType="VARCHAR" property="url" />
+    <result column="aclModuleId" jdbcType="INTEGER" property="aclmoduleid" />
+    <result column="shiroInterceptor" jdbcType="VARCHAR" property="shirointerceptor" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="permid" jdbcType="INTEGER" property="permid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    url, aclModuleId, shiroInterceptor, createtime, roleid, permid, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permurlstrategy
+    where url = #{url,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from permurlstrategy
+    where url = #{url,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.PermUrlStrategy">
+    insert into permurlstrategy (url, aclModuleId, shiroInterceptor, 
+      createtime, roleid, permid, 
+      remark)
+    values (#{url,jdbcType=VARCHAR}, #{aclmoduleid,jdbcType=INTEGER}, #{shirointerceptor,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{roleid,jdbcType=INTEGER}, #{permid,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.PermUrlStrategy">
+    insert into permurlstrategy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="url != null">
+        url,
+      </if>
+      <if test="aclmoduleid != null">
+        aclModuleId,
+      </if>
+      <if test="shirointerceptor != null">
+        shiroInterceptor,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="permid != null">
+        permid,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="aclmoduleid != null">
+        #{aclmoduleid,jdbcType=INTEGER},
+      </if>
+      <if test="shirointerceptor != null">
+        #{shirointerceptor,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="permid != null">
+        #{permid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.PermUrlStrategy">
+    update permurlstrategy
+    <set>
+      <if test="aclmoduleid != null">
+        aclModuleId = #{aclmoduleid,jdbcType=INTEGER},
+      </if>
+      <if test="shirointerceptor != null">
+        shiroInterceptor = #{shirointerceptor,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleid != null">
+        roleid = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="permid != null">
+        permid = #{permid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where url = #{url,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.PermUrlStrategy">
+    update permurlstrategy
+    set aclModuleId = #{aclmoduleid,jdbcType=INTEGER},
+      shiroInterceptor = #{shirointerceptor,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      roleid = #{roleid,jdbcType=INTEGER},
+      permid = #{permid,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where url = #{url,jdbcType=VARCHAR}
+  </update>
+</mapper>

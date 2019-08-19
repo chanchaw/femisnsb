@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
+	"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+	
+<generatorConfiguration>
+	<!-- 数据库驱动包位置 -->
+	<classPathEntry location="D:/Java/EclipseWS181019/femisnsb/mybatisGenerator/mysql-connector-java-5.1.34.jar" /> <!-- 1 -->
+	
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库链接URL、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/femis?characterEncoding=utf8" userId="root" password="chanchaw">  <!-- 2 -->
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- 生成模型的包名和位置 --> <!-- 3 -->
+		<javaModelGenerator targetPackage="com.xdf.femisnsb.model" targetProject="D:/Java/EclipseWS181019/femisnsb/mybatisGenerator/src">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		<!-- 生成的映射文件包名和位置 --> <!-- 4 -->
+		<sqlMapGenerator targetPackage="com.xdf.femisnsb.mapper" targetProject="D:/Java/EclipseWS181019/femisnsb/mybatisGenerator/src">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		<!-- 生成DAO的包名和位置 --> <!-- 5 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.xdf.femisnsb.dao" targetProject="D:/Java/EclipseWS181019/femisnsb/mybatisGenerator/src">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<!--生成service,serviceImpl 2019年8月19日15:28:41 未实现 
+        <javaServiceGenerator targetPackage="com.xdf.femisnsb.service" targetProject="D:/Java/EclipseWS181019/femisnsb/mybatisGenerator/src"
+                              implementationPackage="com.xdf.femisnsb.service">
+        </javaServiceGenerator>--> 
+		
+		<!-- 
+			要生成那些表(更改tableName和domainObjectName就可以)
+			被注释掉的都是已经生成过的 
+		-->
+		<!-- <table tableName="finishedproductcategory" domainObjectName="FinishedProductCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="finishedproduct" domainObjectName="FinishedProduct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="tablestyle" domainObjectName="TableStyle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="permuser" domainObjectName="PermUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="permrole" domainObjectName="PermRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="permaclmodule" domainObjectName="PermAclModule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="permacl" domainObjectName="PermAcl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="permdept" domainObjectName="PermDept" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="permroleacl" domainObjectName="PermRoleAcl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="permroleuser" domainObjectName="PermRoleUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="permurlstrategy" domainObjectName="PermUrlStrategy" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="contactcategory" domainObjectName="ContactCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="contactcompany" domainObjectName="ContactCompany" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="deliverytype" domainObjectName="DeliveryType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="singlechoicecategory" domainObjectName="SingleChoiceCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="singlechoice" domainObjectName="SingleChoice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="department" domainObjectName="Department" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="employee" domainObjectName="Employee" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="ordermain" domainObjectName="OrderMain" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="orderdetail" domainObjectName="OrderDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="cfgbillcode" domainObjectName="CfgBillCode" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="continuous" domainObjectName="Continuous" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="chargeunit" domainObjectName="ChargeUnit" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="aggriddatamodel" domainObjectName="AgGridDataModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="contactcompanyver" domainObjectName="ContactCompanyVer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="settlement" domainObjectName="Settlement" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="package" domainObjectName="Package" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="companytitle" domainObjectName="Companytitle" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" /> -->
+		<!-- <table tableName="salecategory" domainObjectName="SaleCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<!-- <table tableName="salecategory" domainObjectName="SaleCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
+		<table tableName="basedatalist" domainObjectName="BasedataList" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.ContactCompanyMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.ContactCompany">
+    <result column="sId" jdbcType="VARCHAR" property="sid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="parendid" jdbcType="INTEGER" property="parendid" />
+    <result column="bank" jdbcType="VARCHAR" property="bank" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.ContactCompany">
+    insert into contactcompany (sId, name, code, 
+      alias, customer, parendid, 
+      bank, account, linkman, 
+      phone, address, status
+      )
+    values (#{sid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{alias,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR}, #{parendid,jdbcType=INTEGER}, 
+      #{bank,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.ContactCompany">
+    insert into contactcompany
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+      <if test="parendid != null">
+        parendid,
+      </if>
+      <if test="bank != null">
+        bank,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="linkman != null">
+        linkman,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="parendid != null">
+        #{parendid,jdbcType=INTEGER},
+      </if>
+      <if test="bank != null">
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from contactcategory
+    where sid=#{sid,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.ContactCompany">
+    update contactcompany
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      customer = #{customer,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      bank = #{bank,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    	select *
+    	from contactcompany
+    	where sid = #{id,jdbcType=VARCHAR}
+  	</select>
+
+
+	<!-- 下面是自定义查询 -->
+	<select id="selectAll" resultMap="BaseResultMap">
+    	select *
+    	from contactcompany
+    	where 1=1
+  	</select>
+  	
+  	<select id="selectAllValid" resultMap="BaseResultMap">
+    	select *
+    	from contactcompany
+    	where IFNULL(status,1)=1
+  	</select>
+  	
+  	<select id="selectAllInvalid" resultMap="BaseResultMap">
+    	select *
+    	from contactcompany
+    	where IFNULL(status,1)=0
+  	</select>
+  	
+</mapper>

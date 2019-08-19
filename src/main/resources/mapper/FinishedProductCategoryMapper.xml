@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.FinishedProductCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.FinishedProductCategory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="serialno" jdbcType="REAL" property="serialno" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="oprimary" jdbcType="INTEGER" property="oprimary" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, parentid, serialno, status, createdate, oprimary
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finishedproductcategory
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from finishedproductcategory
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.FinishedProductCategory">
+    insert into finishedproductcategory (id, title, parentid, 
+      serialno, status, createdate, 
+      oprimary)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{serialno,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{oprimary,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.FinishedProductCategory">
+    insert into finishedproductcategory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="serialno != null">
+        serialno,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="oprimary != null">
+        oprimary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="serialno != null">
+        #{serialno,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oprimary != null">
+        #{oprimary,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.FinishedProductCategory">
+    update finishedproductcategory
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="serialno != null">
+        serialno = #{serialno,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oprimary != null">
+        oprimary = #{oprimary,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.FinishedProductCategory">
+    update finishedproductcategory
+    set title = #{title,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      serialno = #{serialno,jdbcType=REAL},
+      status = #{status,jdbcType=INTEGER},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      oprimary = #{oprimary,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 下面是自定义查询 -->
+  <select id="selectAll" resultMap="BaseResultMap"><!-- 获取所有数据 -->
+		select * from finishedproductcategory where 1=1;
+  </select>
+  
+  <select id="selectAllValid" resultMap="BaseResultMap"><!-- 获取所有有效数据 -->
+		select * from finishedproductcategory where ifnull(status,1)=1;
+  </select>
+  
+  <select id="selectAllInvalid" resultMap="BaseResultMap"><!-- 获取所有无效数据 -->
+		select * from finishedproductcategory where ifnull(status,1)=0;
+  </select>
+  
+    <select id="selectByName"  parameterType="java.lang.String" resultMap="BaseResultMap"><!-- 获取所有无效数据 -->
+		select * from finishedproductcategory where title=#{#title,jdbcType=VARCHAR};
+  </select>
+  
+  
+</mapper>

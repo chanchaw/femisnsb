@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd 
+       http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+       <!-- 启用上下文注解 -->
+       <context:annotation-config />
+       
+       <!-- 
+       		下面是静态资源的请求路径配置
+       		那么Dispatcher
+        -->
+       <mvc:resources location="/ng/" mapping="/ng/**"/> 
+       
+       <!-- 
+       <mvc:resources location="/img/" mapping="/img/**"/> 
+       <mvc:resources location="/js/" mapping="/js/**"/> 
+       <mvc:resources location="/css/" mapping="/css/**"/>
+        --> 
+       
+
+       
+       <!-- 设置控制器、服务层的包路径 -->
+       <context:component-scan base-package="com.xdf.femisnsb.controller" />
+       <context:component-scan base-package="com.xdf.femisnsb.service" />
+       <context:component-scan base-package="com.xdf.utils" />
+       <!-- <context:component-scan base-package="com.xdf.femisnsb.shiro.realms" />  -->
+       
+       <!-- 处理“控制器”中的方法头上的@GetMapping @PostMapping等 -->
+       <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+       <!-- 下面的bean会处理返回数据，例如是返回json还是jsp页面 -->
+       <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+       
+       <!-- 当返回json数据时负责处理的类 -->
+       <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+       
+       <!-- 当返回jsp页面时用到的参数 -->
+       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       		<property name="order" value="0"></property>
+       		<property name="prefix" value="/WEB-INF/pages/" /><!-- 请求路径的前缀，配置到这里需要在WEB-INF下创建名称为“views”的文件夹 -->
+       		<!-- <property name="prefix" value="/views/" />  -->
+       		<property name="suffix" value=".jsp" />
+       </bean>
+       
+       <!-- html解析器 
+       	<bean id="htmlviewResolver"    
+        	class="org.springframework.web.servlet.view.InternalResourceViewResolver">   
+        	<property name="viewClass" value="com.move.webproject.Tools.HtmlResourceView"/>  
+        	<property name="order" value="1" />  
+        	<property name="prefix" value="/ng/"/>  
+        	<property name="suffix" value=".html" />    
+        	<property name="contentType" value="text/html;charset=UTF-8"></property>    
+    	</bean>  
+    	-->
+       
+       
+       <!-- 
+       	启动注解驱动的spring mvc功能，例如：service、controller等。
+       	配置到这一步需要为工程创建好包：controller、service、dao、model、util 
+       
+       <mvc:annotation-driven/>
+       -->
+   
+    
+<!-- 让DispatchServlet启动基于annotation的HandlerMapping -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!-- 解决Controller返回json中文乱码问题 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <!-- <property name="supportedMediaTypes" value="text/html;charset=UTF-8" /> -->
+                <!-- <property name="supportedMediaTypes" value="application/json;charset=UTF-8" > -->
+                <property name="supportedMediaTypes">
+                    <list>
+                    	<value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            
+            
+            
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+            	<property name="supportedMediaTypes">
+            		<list>
+            			<value>application/json;charset=UTF-8</value>
+            			<value>application/x-www-form-urlencoded;charset=UTF-8</value>
+            		</list>
+            	</property>
+            	<property name="objectMapper">
+            		<bean class="com.xdf.femisnsb.service.MyJsonMapper"></bean>
+            	</property>
+            </bean>
+            
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- <bean id="jacksonObjectMapper" class="com.xdf.femisnsb.service.MyJsonMapper"></bean>  -->
+</beans>

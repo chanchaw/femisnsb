@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.SingleChoiceMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.SingleChoice">
+    <id column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="oprimary" jdbcType="VARCHAR" property="oprimary" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sid, pid, oprimary
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from singlechoice
+    where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from singlechoice
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.SingleChoice">
+    insert into singlechoice (sid, pid, oprimary
+      )
+    values (#{sid,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{oprimary,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.SingleChoice">
+    insert into singlechoice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="oprimary != null">
+        oprimary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="oprimary != null">
+        #{oprimary,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.SingleChoice">
+    update singlechoice
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="oprimary != null">
+        oprimary = #{oprimary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.SingleChoice">
+    update singlechoice
+    set pid = #{pid,jdbcType=INTEGER},
+      oprimary = #{oprimary,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+</mapper>

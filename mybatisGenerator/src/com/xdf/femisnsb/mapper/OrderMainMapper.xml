@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.OrderMainMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.OrderMain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="codeid" jdbcType="VARCHAR" property="codeid" />
+    <result column="billdate" jdbcType="TIMESTAMP" property="billdate" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="deliverytime" jdbcType="TIMESTAMP" property="deliverytime" />
+    <result column="clientid" jdbcType="VARCHAR" property="clientid" />
+    <result column="pactcode" jdbcType="VARCHAR" property="pactcode" />
+    <result column="pactsum" jdbcType="REAL" property="pactsum" />
+    <result column="settletype" jdbcType="VARCHAR" property="settletype" />
+    <result column="deliverytype" jdbcType="VARCHAR" property="deliverytype" />
+    <result column="invoice" jdbcType="INTEGER" property="invoice" />
+    <result column="originator" jdbcType="VARCHAR" property="originator" />
+    <result column="salesman" jdbcType="VARCHAR" property="salesman" />
+    <result column="contractor" jdbcType="VARCHAR" property="contractor" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="lastupdatetime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, codeid, billdate, createdate, deliverytime, clientid, pactcode, pactsum, settletype, 
+    deliverytype, invoice, originator, salesman, contractor, remark, status, createtime, 
+    creator, lastupdatetime, updater
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ordermain
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ordermain
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.OrderMain">
+    insert into ordermain (id, codeid, billdate, 
+      createdate, deliverytime, clientid, 
+      pactcode, pactsum, settletype, 
+      deliverytype, invoice, originator, 
+      salesman, contractor, remark, 
+      status, createtime, creator, 
+      lastupdatetime, updater)
+    values (#{id,jdbcType=INTEGER}, #{codeid,jdbcType=VARCHAR}, #{billdate,jdbcType=TIMESTAMP}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{deliverytime,jdbcType=TIMESTAMP}, #{clientid,jdbcType=VARCHAR}, 
+      #{pactcode,jdbcType=VARCHAR}, #{pactsum,jdbcType=REAL}, #{settletype,jdbcType=VARCHAR}, 
+      #{deliverytype,jdbcType=VARCHAR}, #{invoice,jdbcType=INTEGER}, #{originator,jdbcType=VARCHAR}, 
+      #{salesman,jdbcType=VARCHAR}, #{contractor,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{lastupdatetime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.OrderMain">
+    insert into ordermain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="codeid != null">
+        codeid,
+      </if>
+      <if test="billdate != null">
+        billdate,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="deliverytime != null">
+        deliverytime,
+      </if>
+      <if test="clientid != null">
+        clientid,
+      </if>
+      <if test="pactcode != null">
+        pactcode,
+      </if>
+      <if test="pactsum != null">
+        pactsum,
+      </if>
+      <if test="settletype != null">
+        settletype,
+      </if>
+      <if test="deliverytype != null">
+        deliverytype,
+      </if>
+      <if test="invoice != null">
+        invoice,
+      </if>
+      <if test="originator != null">
+        originator,
+      </if>
+      <if test="salesman != null">
+        salesman,
+      </if>
+      <if test="contractor != null">
+        contractor,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="lastupdatetime != null">
+        lastupdatetime,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="codeid != null">
+        #{codeid,jdbcType=VARCHAR},
+      </if>
+      <if test="billdate != null">
+        #{billdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverytime != null">
+        #{deliverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientid != null">
+        #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="pactcode != null">
+        #{pactcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pactsum != null">
+        #{pactsum,jdbcType=REAL},
+      </if>
+      <if test="settletype != null">
+        #{settletype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverytype != null">
+        #{deliverytype,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null">
+        #{invoice,jdbcType=INTEGER},
+      </if>
+      <if test="originator != null">
+        #{originator,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null">
+        #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="contractor != null">
+        #{contractor,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null">
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.OrderMain">
+    update ordermain
+    <set>
+      <if test="codeid != null">
+        codeid = #{codeid,jdbcType=VARCHAR},
+      </if>
+      <if test="billdate != null">
+        billdate = #{billdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverytime != null">
+        deliverytime = #{deliverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientid != null">
+        clientid = #{clientid,jdbcType=VARCHAR},
+      </if>
+      <if test="pactcode != null">
+        pactcode = #{pactcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pactsum != null">
+        pactsum = #{pactsum,jdbcType=REAL},
+      </if>
+      <if test="settletype != null">
+        settletype = #{settletype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverytype != null">
+        deliverytype = #{deliverytype,jdbcType=VARCHAR},
+      </if>
+      <if test="invoice != null">
+        invoice = #{invoice,jdbcType=INTEGER},
+      </if>
+      <if test="originator != null">
+        originator = #{originator,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null">
+        salesman = #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="contractor != null">
+        contractor = #{contractor,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="lastupdatetime != null">
+        lastupdatetime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.OrderMain">
+    update ordermain
+    set codeid = #{codeid,jdbcType=VARCHAR},
+      billdate = #{billdate,jdbcType=TIMESTAMP},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      deliverytime = #{deliverytime,jdbcType=TIMESTAMP},
+      clientid = #{clientid,jdbcType=VARCHAR},
+      pactcode = #{pactcode,jdbcType=VARCHAR},
+      pactsum = #{pactsum,jdbcType=REAL},
+      settletype = #{settletype,jdbcType=VARCHAR},
+      deliverytype = #{deliverytype,jdbcType=VARCHAR},
+      invoice = #{invoice,jdbcType=INTEGER},
+      originator = #{originator,jdbcType=VARCHAR},
+      salesman = #{salesman,jdbcType=VARCHAR},
+      contractor = #{contractor,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      lastupdatetime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

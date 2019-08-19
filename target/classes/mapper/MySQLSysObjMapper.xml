@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.MySQLSysObjMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.MySQLTableCols">
+    <id column="autoSeq" jdbcType="INTEGER" property="autoSeq" />
+    <result column="table_shema" jdbcType="VARCHAR" property="table_shema" />
+    <result column="table_name" jdbcType="VARCHAR" property="table_name" />
+    <result column="column_name" jdbcType="VARCHAR" property="column_name" />
+    <result column="ordinal_position" jdbcType="INTEGER" property="ordinal_position" />
+    <result column="column_default" jdbcType="VARCHAR" property="column_default" />
+    <result column="data_type" jdbcType="VARCHAR" property="data_type" />
+    <result column="column_comment" jdbcType="VARCHAR" property="column_comment" />
+  </resultMap>
+  
+    <resultMap id="MySQLTable" type="com.xdf.femisnsb.model.MySQLTable">
+    <id column="autoSeq" jdbcType="INTEGER" property="autoSeq" />
+    <result column="table_shema" jdbcType="VARCHAR" property="table_shema" />
+    <result column="table_name" jdbcType="VARCHAR" property="table_name" />
+    <result column="engine" jdbcType="VARCHAR" property="engine" />
+    <result column="table_rows" jdbcType="INTEGER" property="table_rows" />
+    <result column="table_collation" jdbcType="VARCHAR" property="table_collation" />
+    <result column="table_comment" jdbcType="VARCHAR" property="table_comment" />
+  </resultMap>
+  
+<sql id="Base_Column_List">
+  autoSeq,table_schema,table_name,column_name,ordinal_position,column_default,
+  data_type,column_comment
+</sql>
+
+
+<select id="selectCols" parameterType="com.xdf.femisnsb.model.MySQLSchema" 
+	resultMap="BaseResultMap">
+	
+	SELECT @rownum:=@rownum+1 as autoSeq,a.*
+	FROM information_schema.columns a,(select @rownum:=0) b
+	WHERE table_schema=#{table_schema,jdbcType=VARCHAR} 
+	AND table_name=#{table_name,jdbcType=VARCHAR};
+	
+</select>
+ 
+	
+<select id="selectTables" parameterType="java.lang.String" resultMap="MySQLTable">
+	
+SELECT @rownum:=@rownum+1 as autoSeq,a.*
+FROM information_schema.tables a , (select @rownum:=0) b
+WHERE table_schema=#{dbname,jdbcType=VARCHAR} AND table_type='base table';
+	
+</select>
+  
+</mapper>

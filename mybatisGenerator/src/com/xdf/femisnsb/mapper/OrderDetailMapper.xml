@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.OrderDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mainid" jdbcType="INTEGER" property="mainid" />
+    <result column="ordercode" jdbcType="VARCHAR" property="ordercode" />
+    <result column="oordercode" jdbcType="VARCHAR" property="oordercode" />
+    <result column="stylecode" jdbcType="VARCHAR" property="stylecode" />
+    <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
+    <result column="spec01" jdbcType="VARCHAR" property="spec01" />
+    <result column="spec02" jdbcType="VARCHAR" property="spec02" />
+    <result column="size" jdbcType="VARCHAR" property="size" />
+    <result column="colorcode" jdbcType="VARCHAR" property="colorcode" />
+    <result column="colorname" jdbcType="VARCHAR" property="colorname" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="meter" jdbcType="REAL" property="meter" />
+    <result column="kg" jdbcType="REAL" property="kg" />
+    <result column="yard" jdbcType="REAL" property="yard" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="amount" jdbcType="REAL" property="amount" />
+    <result column="platemake" jdbcType="REAL" property="platemake" />
+    <result column="sample" jdbcType="REAL" property="sample" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mainid, ordercode, oordercode, stylecode, goodsname, spec01, spec02, size, colorcode, 
+    colorname, color, meter, kg, yard, price, amount, platemake, sample, remark, createtime, 
+    creator, updatetime, updater
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.OrderDetail">
+    insert into orderdetail (id, mainid, ordercode, 
+      oordercode, stylecode, goodsname, 
+      spec01, spec02, size, 
+      colorcode, colorname, color, 
+      meter, kg, yard, price, 
+      amount, platemake, sample, remark, 
+      createtime, creator, updatetime, 
+      updater)
+    values (#{id,jdbcType=INTEGER}, #{mainid,jdbcType=INTEGER}, #{ordercode,jdbcType=VARCHAR}, 
+      #{oordercode,jdbcType=VARCHAR}, #{stylecode,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, 
+      #{spec01,jdbcType=VARCHAR}, #{spec02,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{colorcode,jdbcType=VARCHAR}, #{colorname,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
+      #{meter,jdbcType=REAL}, #{kg,jdbcType=REAL}, #{yard,jdbcType=REAL}, #{price,jdbcType=REAL}, 
+      #{amount,jdbcType=REAL}, #{platemake,jdbcType=REAL}, #{sample,jdbcType=REAL}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.OrderDetail">
+    insert into orderdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mainid != null">
+        mainid,
+      </if>
+      <if test="ordercode != null">
+        ordercode,
+      </if>
+      <if test="oordercode != null">
+        oordercode,
+      </if>
+      <if test="stylecode != null">
+        stylecode,
+      </if>
+      <if test="goodsname != null">
+        goodsname,
+      </if>
+      <if test="spec01 != null">
+        spec01,
+      </if>
+      <if test="spec02 != null">
+        spec02,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="colorcode != null">
+        colorcode,
+      </if>
+      <if test="colorname != null">
+        colorname,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="meter != null">
+        meter,
+      </if>
+      <if test="kg != null">
+        kg,
+      </if>
+      <if test="yard != null">
+        yard,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="platemake != null">
+        platemake,
+      </if>
+      <if test="sample != null">
+        sample,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mainid != null">
+        #{mainid,jdbcType=INTEGER},
+      </if>
+      <if test="ordercode != null">
+        #{ordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="oordercode != null">
+        #{oordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="stylecode != null">
+        #{stylecode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="spec01 != null">
+        #{spec01,jdbcType=VARCHAR},
+      </if>
+      <if test="spec02 != null">
+        #{spec02,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="colorcode != null">
+        #{colorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorname != null">
+        #{colorname,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="meter != null">
+        #{meter,jdbcType=REAL},
+      </if>
+      <if test="kg != null">
+        #{kg,jdbcType=REAL},
+      </if>
+      <if test="yard != null">
+        #{yard,jdbcType=REAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=REAL},
+      </if>
+      <if test="platemake != null">
+        #{platemake,jdbcType=REAL},
+      </if>
+      <if test="sample != null">
+        #{sample,jdbcType=REAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.OrderDetail">
+    update orderdetail
+    <set>
+      <if test="mainid != null">
+        mainid = #{mainid,jdbcType=INTEGER},
+      </if>
+      <if test="ordercode != null">
+        ordercode = #{ordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="oordercode != null">
+        oordercode = #{oordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="stylecode != null">
+        stylecode = #{stylecode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="spec01 != null">
+        spec01 = #{spec01,jdbcType=VARCHAR},
+      </if>
+      <if test="spec02 != null">
+        spec02 = #{spec02,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="colorcode != null">
+        colorcode = #{colorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorname != null">
+        colorname = #{colorname,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="meter != null">
+        meter = #{meter,jdbcType=REAL},
+      </if>
+      <if test="kg != null">
+        kg = #{kg,jdbcType=REAL},
+      </if>
+      <if test="yard != null">
+        yard = #{yard,jdbcType=REAL},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=REAL},
+      </if>
+      <if test="platemake != null">
+        platemake = #{platemake,jdbcType=REAL},
+      </if>
+      <if test="sample != null">
+        sample = #{sample,jdbcType=REAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.OrderDetail">
+    update orderdetail
+    set mainid = #{mainid,jdbcType=INTEGER},
+      ordercode = #{ordercode,jdbcType=VARCHAR},
+      oordercode = #{oordercode,jdbcType=VARCHAR},
+      stylecode = #{stylecode,jdbcType=VARCHAR},
+      goodsname = #{goodsname,jdbcType=VARCHAR},
+      spec01 = #{spec01,jdbcType=VARCHAR},
+      spec02 = #{spec02,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      colorcode = #{colorcode,jdbcType=VARCHAR},
+      colorname = #{colorname,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      meter = #{meter,jdbcType=REAL},
+      kg = #{kg,jdbcType=REAL},
+      yard = #{yard,jdbcType=REAL},
+      price = #{price,jdbcType=REAL},
+      amount = #{amount,jdbcType=REAL},
+      platemake = #{platemake,jdbcType=REAL},
+      sample = #{sample,jdbcType=REAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

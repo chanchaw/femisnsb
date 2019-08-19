@@ -1,0 +1,49 @@
+package com.xdf.femisnsb.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.xdf.femisnsb.model.Companytitle;
+import com.xdf.femisnsb.service.CompanyTitleServiceImpl;
+
+@CrossOrigin
+@RestController
+@RequestMapping("/companyTitle")
+public class CompanyTitleController {
+	
+	@Autowired
+	private CompanyTitleServiceImpl service;
+	
+	@PostMapping("/insert")
+	public Integer insert(@RequestBody Companytitle record) {
+		return service.insert(record);
+	}
+	
+	@GetMapping("/deleteBPK/{key}")
+	public Integer deleteBPK(@PathVariable("key") String key) {
+		return service.deleteBPK(key);
+	}
+	
+	@PostMapping("/updateBPK")
+	public Integer updateBPK(@RequestBody Companytitle record) {
+		return service.updateBPK(record);
+	}
+	
+	@GetMapping("/getBPK/{key}")
+	public Companytitle getBPK(String key) {
+		return service.getBPK(key);
+	}
+	
+	@GetMapping("/getAll")
+	public List<Companytitle> getAll(){
+		return service.getAll();
+	}
+}

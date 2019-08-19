@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.PermRoleUserMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.PermRoleUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="operatetime" jdbcType="TIMESTAMP" property="operatetime" />
+    <result column="operateip" jdbcType="VARCHAR" property="operateip" />
+    <result column="rolename" jdbcType="VARCHAR" property="rolename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, roleid, userid, operator, operatetime, operateip,rolename
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permroleuser
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from permroleuser
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.PermRoleUser">
+    insert into permroleuser (id, roleid, userid, 
+      operator, operatetime, operateip
+      )
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{operator,jdbcType=VARCHAR}, #{operatetime,jdbcType=TIMESTAMP}, #{operateip,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.PermRoleUser">
+    insert into permroleuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="operatetime != null">
+        operatetime,
+      </if>
+      <if test="operateip != null">
+        operateip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetime != null">
+        #{operatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateip != null">
+        #{operateip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.PermRoleUser">
+    update permroleuser
+    <set>
+      <if test="roleid != null">
+        roleid = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetime != null">
+        operatetime = #{operatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateip != null">
+        operateip = #{operateip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.PermRoleUser">
+    update permroleuser
+    set roleid = #{roleid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      operatetime = #{operatetime,jdbcType=TIMESTAMP},
+      operateip = #{operateip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 下面是自定义查询 -->
+    <select id="selectAll"  resultMap="BaseResultMap">
+    select *
+    from permroleuser
+    where 1=1
+  </select>
+</mapper>

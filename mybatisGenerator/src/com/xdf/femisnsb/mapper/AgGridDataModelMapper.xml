@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.femisnsb.dao.AgGridDataModelMapper">
+  <resultMap id="BaseResultMap" type="com.xdf.femisnsb.model.AgGridDataModel">
+    <id column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="make" jdbcType="VARCHAR" property="make" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="price" jdbcType="REAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    iid, make, model, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from aggriddatamodel
+    where iid = #{iid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from aggriddatamodel
+    where iid = #{iid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xdf.femisnsb.model.AgGridDataModel">
+    insert into aggriddatamodel (iid, make, model, 
+      price)
+    values (#{iid,jdbcType=INTEGER}, #{make,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{price,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xdf.femisnsb.model.AgGridDataModel">
+    insert into aggriddatamodel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iid != null">
+        iid,
+      </if>
+      <if test="make != null">
+        make,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iid != null">
+        #{iid,jdbcType=INTEGER},
+      </if>
+      <if test="make != null">
+        #{make,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xdf.femisnsb.model.AgGridDataModel">
+    update aggriddatamodel
+    <set>
+      <if test="make != null">
+        make = #{make,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+    </set>
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xdf.femisnsb.model.AgGridDataModel">
+    update aggriddatamodel
+    set make = #{make,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL}
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+</mapper>
